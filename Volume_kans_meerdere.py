@@ -7,7 +7,7 @@ from scipy.stats import norm, lognorm
 from pathlib import Path
 
 #Map waarin je .txt-bestanden staan 
-data_map = Path("4000_210") 
+data_map = Path("1750_210") 
 
 #Alle .txt-bestanden in de map zoeken 
 bestanden = sorted(data_map.glob("*.txt"))
@@ -120,6 +120,18 @@ samenvatting = resultaten.groupby("bestand").agg(
 
 print("\n--- Samenvatting per bestand ---")
 print(samenvatting)
+
+#Gemiddelde Dv50 over alle bestanden samen
+gemiddelde_Dv50_folder = samenvatting["gemiddelde_Dv50"].mean()
+
+print("\n--- Gemiddelde Dv50 voor deze folder ---")
+print(f"Gemiddelde Dv50 over alle bestanden = {gemiddelde_Dv50_folder:.2f} µm")
+
+#Lijst met gemiddelde Dv50 per bestand
+lijst_Dv50 = samenvatting["gemiddelde_Dv50"].tolist()
+
+print("\n--- Dv50 lijst per bestand ---")
+print("Dv50 =", lijst_Dv50)
 
 #gemiddelde kans over alle bestanden samen
 
