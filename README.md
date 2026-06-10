@@ -1,4 +1,4 @@
 # PNS groep 23: Dynamics of coalescence events in spray clouds
-This repository contains all the code for our project regadring data analysis and manimations.
+The code for our project can be found in the main branch of our repository. Here is also our Manimations code. This is the "main.py" file. Our data-analysis is all done in Jupyter notebooks, with corresponding names.
 
-The data analysis can be viewed in Jupiter notebooks.
+Our logbook, minutes and labjournal can all be found in overleaf. We have shared our overleaf file with Clara.
