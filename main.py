@@ -230,8 +230,7 @@ class Jet(Scene):
         self.add(WaterJet)
         self.play(WaterJet.animate.shift(DOWN*0.84))
 
-        # CRUCIAL: Voeg Waterdroop hier NIET aan toe. 
-        # Alleen de 5 begin-druppels starten in de scene.
+
         self.add(Waterdrop1, Waterdrop2, Waterdrop3, Waterdrop4, Waterdrop5)
 
 
@@ -247,7 +246,7 @@ class Jet(Scene):
                 Waterdroop.animate(run_time=1.5).shift(DOWN * 5) # Grote drop valt door
             ),
             
-            # Waterdrop 3: Wacht, valt, en verdwijnt exact op de impact-frame (t = 2.4s)
+
             Succession(
                 Wait(run_time=0.8),  
                 Waterdrop3.animate(run_time=1.6).shift(DOWN * 3), # 1.6s voor de perfecte gelijke timing
