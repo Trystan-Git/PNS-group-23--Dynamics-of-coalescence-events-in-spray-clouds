@@ -1,9 +1,9 @@
 from manim import *
-from manim_physics import *
 
 class het(Scene):
     def construct(self):
         
+        # Nozzle
         nozzle = Rectangle(
             color= GRAY,
             height= 3,
@@ -12,6 +12,7 @@ class het(Scene):
             fill_opacity= 0.8
         )
 
+        # Jet
         WaterJetsqr = Rectangle(
             color= BLUE,
             height=0.4,
@@ -30,40 +31,20 @@ class het(Scene):
 
         WaterJet = VGroup(WaterJetsqr, WaterJetcirc)
 
-        Waterdrop1 = Circle(
-            color= BLUE,
-            radius= 0.05,
-            fill_color=BLUE,
-            fill_opacity=0.8
-        ).shift(UP * 2)
+        #Waterdrops
+        def drop():
+            return Circle(
+                color=BLUE,
+                radius=0.05,
+                fill_color=BLUE,
+                fill_opacity=0.8
+            ).shift(UP * 2)
 
-        Waterdrop2 = Circle(
-            color= BLUE,
-            radius= 0.05,
-            fill_color=BLUE,
-            fill_opacity=0.8
-        ).shift(UP * 2)
-
-        Waterdrop3 = Circle(
-            color= BLUE,
-            radius= 0.05,
-            fill_color=BLUE,
-            fill_opacity=0.8
-        ).shift(UP * 2)
-
-        Waterdrop4 = Circle(
-            color= BLUE,
-            radius= 0.05,
-            fill_color=BLUE,
-            fill_opacity=0.8
-        ).shift(UP * 2)
-
-        Waterdrop5 = Circle(
-            color= BLUE,
-            radius= 0.05,
-            fill_color=BLUE,
-            fill_opacity=0.8
-        ).shift(UP * 2)
+        Waterdrop1 = drop()
+        Waterdrop2 = drop()
+        Waterdrop3 = drop()
+        Waterdrop4 = drop()
+        Waterdrop5 = drop()
 
         nozzletext = Text(r"Our nozzle").shift(UP*2.4)
 
@@ -78,7 +59,6 @@ class het(Scene):
         self.play(WaterJet.animate.shift(DOWN*0.84))
         
         self.add(Waterdrop1, Waterdrop2, Waterdrop3, Waterdrop4, Waterdrop5)
-
 
         self.play(
            
