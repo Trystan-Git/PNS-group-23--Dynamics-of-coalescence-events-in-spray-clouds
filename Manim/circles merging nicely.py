@@ -14,7 +14,7 @@ class MergeCircles(Scene):
             c2.animate.move_to(ORIGIN),
             rate_func=linear, run_time=1)
         
-        self.play(ReplacementTransform(VGroup(c1, c2), c3), run_time=0.1, rate_func=linear)
+        self.play(TransformMatchingShapes(VGroup(c1, c2), c3), run_time=0.1, rate_func=linear)
 
         self.play(c3.animate.move_to(RIGHT*8),rate_func=linear, run_time=8/3)
 
