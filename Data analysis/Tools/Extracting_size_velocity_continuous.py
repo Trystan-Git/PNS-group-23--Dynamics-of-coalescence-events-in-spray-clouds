@@ -22,14 +22,15 @@ from tqdm import tqdm
 
 # ── parameters ────────────────────────────────────────────────────────────────
 PATH          = "/Users/thijm/Documents/Video_droplets/nttm/50000fps_64micron_1mlperminute_1.cine"
-THRESHOLD     = 350 / 16
-MIN_AREA      = 150
-MAX_AREA      = 2500
+THRESHOLD     = 2200/16
+MIN_AREA      = 900
+MAX_AREA      = 2800
 X_LEFT        = 100
-X_RIGHT       = 600
+X_RIGHT       = 650
 MAX_LINK_DIST = 150
 MIN_TRACK_LEN = 5
 FPS           = 50000
+# METERS_PER_PIXEL = 3.85e-6
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -151,8 +152,8 @@ def run(path):
         if t_span == 0:
             continue
 
-        vx = (xs[-1] - xs[0]) / t_span * FPS
-        vy = (ys[-1] - ys[0]) / t_span * FPS
+        vx = (xs[-1] - xs[0]) / t_span * FPS 
+        vy = (ys[-1] - ys[0]) / t_span * FPS 
         speed = np.hypot(vx, vy)
 
         rows.append({
@@ -165,7 +166,7 @@ def run(path):
         })
 
     # ── save ──────────────────────────────────────────────────────────────────
-    out_path = path.replace(".cine", "_vel_size.csv")
+    out_path = path.replace(".cine", "_vel_size2.csv")
     with open(out_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=rows[0].keys())
         writer.writeheader()

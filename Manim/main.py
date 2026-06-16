@@ -46,6 +46,13 @@ class het(Scene):
         Waterdrop4 = drop()
         Waterdrop5 = drop()
 
+        Grotedrop = Circle(
+            radius=0.07,
+            color=BLUE,
+            fill_color=BLUE,
+            fill_opacity=0.8
+        )
+
         nozzletext = Text(r"Our nozzle").shift(UP*2.4)
 
         self.play(Create(nozzle))
@@ -59,39 +66,39 @@ class het(Scene):
         self.play(WaterJet.animate.shift(DOWN*0.84))
         
         self.add(Waterdrop1, Waterdrop2, Waterdrop3, Waterdrop4, Waterdrop5)
-
+        
         self.play(
            
-            Waterdrop1.animate(run_time=3).shift(DOWN * 8),
+            Waterdrop1.animate(run_time=3, rate_func=linear).shift(DOWN * 8),
 
             Succession(
                 Wait(run_time=0.4),
-                Waterdrop2.animate(run_time=2.0).shift(DOWN * 3),
+                Waterdrop2.animate(run_time=2.0,rate_func=linear).shift(DOWN * 3),
                 ScaleInPlace(Waterdrop2, scale_factor=1.5, run_time=0.01),
                 Wait(run_time=0.05),
             ),
             
             Succession(
                 Wait(run_time=2.45),
-                Waterdrop2.animate(run_time=1.5).shift(DOWN*8)
+                Waterdrop2.animate(run_time=1.5,rate_func=linear).shift(DOWN*8)
             ),
 
             Succession(
                 Wait(run_time=0.8),  
-                Waterdrop3.animate(run_time=1.6).shift(DOWN * 3), # 1.6s voor de perfecte gelijke timing
+                Waterdrop3.animate(run_time=1.6,rate_func=linear).shift(DOWN * 3), # 1.6s voor de perfecte gelijke timing
                 FadeOut(Waterdrop3, run_time=0.05)
             ),
 
             # Waterdrop 4
             Succession(
                 Wait(run_time=1.2),
-                Waterdrop4.animate(run_time=3).shift(DOWN * 8)
+                Waterdrop4.animate(run_time=3,rate_func=linear).shift(DOWN * 8)
             ),
             
             # Waterdrop 5
             Succession(
                 Wait(run_time=1.6),
-                Waterdrop5.animate(run_time=3).shift(DOWN * 8)
+                Waterdrop5.animate(run_time=3,rate_func=linear).shift(DOWN * 8)
             )     
         )
         self.wait(1)
@@ -170,6 +177,7 @@ class para(Scene):
         # Parameter 2: Velocity 
         self.play(FadeIn(nozzle2), FadeIn(textsnel))
         self.play(FadeIn(snelpijl), FadeIn(minidrops))
+        self.play(nozzle2.animate.shift(UP*2).stretch(0.3, dim=1))
         sync_time = 5 
         
         self.play(        
@@ -178,17 +186,14 @@ class para(Scene):
                 run_time=sync_time,
                 rate_func=there_and_back
             ).stretch(1.7, dim=1),
-            
-            # The fluid flow accelerates and then decelerates
+
             LaggedStart(
                 *[
-                    # We make the individual drops linear...
-                    c.animate(rate_func=smooth).shift(DOWN * 3) 
+                    c.animate(rate_func=smooth).shift(DOWN * 6) 
                     for c in minidrops
                 ],
                 lag_ratio=0.04,
                 run_time=sync_time,
-                # ...so this outer 'smooth' function can control the speed of the WHOLE stream
                 rate_func=smooth 
             ),
         )
