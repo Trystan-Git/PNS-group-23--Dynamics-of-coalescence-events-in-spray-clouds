@@ -177,6 +177,7 @@ class para(Scene):
         # Parameter 2: Velocity 
         self.play(FadeIn(nozzle2), FadeIn(textsnel))
         self.play(FadeIn(snelpijl), FadeIn(minidrops))
+        self.play(nozzle2.animate.shift(UP*2).stretch(0.3, dim=1))
         sync_time = 5 
         
         self.play(        
@@ -188,7 +189,7 @@ class para(Scene):
 
             LaggedStart(
                 *[
-                    c.animate(rate_func=smooth).shift(DOWN * 3) 
+                    c.animate(rate_func=smooth).shift(DOWN * 6) 
                     for c in minidrops
                 ],
                 lag_ratio=0.04,
