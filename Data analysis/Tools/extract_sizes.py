@@ -15,7 +15,7 @@ import csv
 from tqdm import tqdm
 
 # ── parameters ────────────────────────────────────────────────────────────────
-PATH        = "/Users/thijm/Documents/Video_droplets/nttm/50000fps_64micron_1mlperminute_1.cine"
+PATH        = "/Users/thijm/Documents/Video_droplets/nttm/70000fps_64micron_2mlperminute_1.cine"
 THRESHOLD   = 145/16            # pixels below this are "dark" (droplet)
 MIN_AREA    = 64             # px², discard noise
 MAX_AREA    = 2000        # px², discard frame artifacts
