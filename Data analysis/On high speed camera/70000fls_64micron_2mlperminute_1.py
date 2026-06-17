@@ -5,7 +5,7 @@ import pandas as pd
 from lmfit import models
 import csv
 
-file_path = r"C:\Users\thijm\Documents\Video_droplets\nttm\50000fps_64micron_1mlperminute_1_vel_size5.csv"
+file_path = r"C:\Users\thijm\Documents\Video_droplets\nttm\70000fps_64micron_2mlperminute_1_2500frames_vel_size.csv"
 scaling_fac = 3.85e-6
 
 # Initialize your lists first so Python knows they exist

@@ -21,15 +21,15 @@ import csv
 from tqdm import tqdm
 
 # ── parameters ────────────────────────────────────────────────────────────────
-PATH          = "/Users/thijm/Documents/Video_droplets/nttm/50000fps_64micron_1mlperminute_1.cine"
-THRESHOLD     = 2200/16
+PATH          = "/Users/thijm/Documents/Video_droplets/nttm/70000fps_64micron_2mlperminute_1_2500frames.cine"
+THRESHOLD     = 1734/16
 MIN_AREA      = 900
 MAX_AREA      = 2800
 X_LEFT        = 100
-X_RIGHT       = 650
-MAX_LINK_DIST = 150
-MIN_TRACK_LEN = 5
-FPS           = 50000
+X_RIGHT       = 690
+MAX_LINK_DIST = 70
+MIN_TRACK_LEN = 6
+FPS           = 70000
 # METERS_PER_PIXEL = 3.85e-6
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -166,7 +166,7 @@ def run(path):
         })
 
     # ── save ──────────────────────────────────────────────────────────────────
-    out_path = path.replace(".cine", "_vel_size2.csv")
+    out_path = path.replace(".cine", "_vel_size.csv")
     with open(out_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=rows[0].keys())
         writer.writeheader()
