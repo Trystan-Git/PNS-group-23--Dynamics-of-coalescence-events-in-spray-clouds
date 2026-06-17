@@ -350,7 +350,7 @@ class model(MovingCameraScene):
         black_droplet.set_x(80)
         
         self.play(
-            FadeOut(moving_label3)
+            FadeOut(moving_label3), 
             self.camera.frame.animate.move_to(black_droplet.get_center()),
             run_time=4
         )
