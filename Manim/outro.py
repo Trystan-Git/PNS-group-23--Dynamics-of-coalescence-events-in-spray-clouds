@@ -11,8 +11,8 @@ class outro(Scene):
         airway = Text(r"Airway").shift(DOWN*3 + RIGHT*4)
         results = Text(r"Our results").shift(UP*3.2)
         diameter = Text(r"Diameter").scale(0.8)
-        velocity = Text(r"velocity").scale(0.8)
-        height = Text(r"height").scale(0.8)
+        velocity = Text(r"Velocity").scale(0.8)
+        height = Text(r"Height").scale(0.8)
 
 
         #Waterdrops
@@ -165,17 +165,6 @@ class outro(Scene):
         self.play(Create(results))
         self.wait(0.5)
         self.play(Create(box1), Create(box2), Create(box3))
-        self.play(Write(gt1))
-        self.wait(0.1)
-        self.play(Write(gt2))
-        self.play(
-            LaggedStart(
-                Write(diameter),
-                Write(velocity),
-                Write(height),
-                lag_ratio=0.4
-            )
-        )
 
 
         # Helper function for nozzles
@@ -242,21 +231,29 @@ class outro(Scene):
  
         bar2 = always_redraw(make_height_bar)
 
+
         # Parameter 1: Run Diameter 
+        self.play(Write(diameter), run_time=0.8)
+
         self.play(FadeIn(bar1))
-        self.play(bar1.animate.stretch(2, dim=0), run_time=1.2)
-        self.play(bar1.animate.stretch(0.25, dim=0), run_time=1.2) 
-        self.play(bar1.animate.stretch(2, dim=0), run_time=1.2)
-        self.wait(0.5)
+        self.play(bar1.animate.stretch(2, dim=0), run_time=0.6)
+        self.play(bar1.animate.stretch(0.25, dim=0), run_time=0.6) 
+        self.play(bar1.animate.stretch(2, dim=0), run_time=0.6)
+        self.wait(0.2)
+
+        self.play(Write(gt1))
+        self.wait(0.1)
  
         # Parameter 2: Run Velocity 
+        self.play(Write(velocity), run_time=0.8)
+
         self.play(FadeIn(nozzle2))
-        self.play(FadeIn(snelpijl), FadeIn(minidrops))
-        self.play(nozzle2.animate.shift(box2.get_top() + DOWN * 0.35).stretch(0.3, dim=1)) 
+        self.play(FadeIn(snelpijl))
+        self.play(nozzle2.animate.shift(box2.get_top() + DOWN * 0.35).stretch(0.3, dim=1), run_time=0.7) 
         self.add(Boxz)
         
-        
-        sync_time = 5 
+        self.play(FadeIn(minidrops))
+        sync_time = 2.5
         self.play(        
             snelpijl.animate(
                 run_time=sync_time,
@@ -268,15 +265,20 @@ class outro(Scene):
                     c.animate(rate_func=smooth).shift(DOWN * 6).set_z_index(1) 
                     for c in minidrops
                 ],
-                lag_ratio=0.04,
+                lag_ratio=0.03,
                 run_time=sync_time,
                 rate_func=smooth 
             ),
         )
 
+        self.play(Write(gt2))
+        self.wait(0.1)
+
         # Parameter 3: Run Height
+        self.play(Write(height), run_time=0.8)
+
         self.play(FadeIn(nozzle3), FadeIn(bar2))
-        self.play(nozzle3.animate.shift(UP * 0.45), run_time=1.2)
-        self.play(nozzle3.animate.shift(DOWN * 0.45), run_time=1.5)  
+        self.play(nozzle3.animate.shift(UP * 0.45), run_time=0.6)
+        self.play(nozzle3.animate.shift(DOWN * 0.45), run_time=1.25)  
  
         self.wait()
