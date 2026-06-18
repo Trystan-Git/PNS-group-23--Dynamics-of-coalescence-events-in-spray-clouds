@@ -1,4 +1,5 @@
 from manim import * 
+import numpy as np
 
 class outro(Scene):
     def construct(self):
@@ -12,6 +13,8 @@ class outro(Scene):
         diameter = Text(r"Diameter").scale(0.8)
         velocity = Text(r"velocity").scale(0.8)
         height = Text(r"height").scale(0.8)
+        velocity = Text(r"Velocity").scale(0.8)
+        height = Text(r"Height").scale(0.8)
 
 
         #Waterdrops
@@ -142,6 +145,7 @@ class outro(Scene):
             LaggedStart(
                 *[Create(d) for d in drops],
             lag_ratio=0.1
+                lag_ratio=0.1
             )
         )
         self.wait(1)
@@ -187,6 +191,7 @@ class outro(Scene):
 
         # previous code from the examples resclaed
 
+        # Helper function for nozzles
         def make_nozzle():
             return Rectangle(
                 color=GRAY,
@@ -202,6 +207,7 @@ class outro(Scene):
  
 
         # center reference point
+        # Parameter 1: Diameter
         center = box1.get_center() 
 
         # main horizontal bar
@@ -216,6 +222,10 @@ class outro(Scene):
             DOWN *0.1, DOWN *0.2, color=WHITE)
 
         # group them first
+        meetbar = Line(LEFT * 0.1+ DOWN*1.2, RIGHT * 0.1 + DOWN * 1.2, color=WHITE)
+        zijbarL = Line(DOWN * 0.1,  DOWN * 0.2, color=WHITE)
+        zijbarR = Line(DOWN *0.1, DOWN *0.2, color=WHITE)
+        
         bar1 = VGroup(meetbar, zijbarL, zijbarR, nozzle1)
 
         # position whole structure
@@ -232,14 +242,42 @@ class outro(Scene):
         ground_y = -1.5  # fixed "ground" level
         bar_x = nozzle3.get_center()[0] + 0.6 
 
+        # Parameter 2: velocity
+        snelpijl = Arrow(start=RIGHT + UP, end=RIGHT + DOWN * 0.4).scale(0.6)
+        minidrops = VGroup(*[
+            Circle(radius=0.05, color=BLUE, fill_opacity=0.8).scale(0.6)
+            for _ in range(50)
+        ]).shift(box2.get_top() + DOWN * 0.7)
 
+        Boxz = Rectangle(
+            color=BLACK,
+            fill_color=BLACK,
+            fill_opacity=1,
+            width=1,
+            height=3
+        ).shift(DOWN*3.04)
+
+        Boxz.set_z_index(10)
+
+
+        # Parameter 3: Height
+        nozzle3.move_to(box3.get_center())
+ 
+        ground_y = box3.get_bottom()[1] + 0.2  # Dynamic ground reference relative to box3
+        bar_x = box3.get_center()[0] + 0.6     # X position shifted slightly right of the nozzle
  
         def make_height_bar():
             top_y = nozzle3.get_bottom()[1]
+            start_point = np.array([bar_x, ground_y, 0])
+            end_point = np.array([bar_x, top_y, 0])
+            
             return VGroup(
                 Line(ground_y*UP+4.3*RIGHT, top_y, color=WHITE),
                 Line([bar_x - 0.1, ground_y+0.7, 0], [bar_x + 0.1, ground_y+0.7, 0], color=WHITE).scale(0.6),
                 Line([bar_x - 0.1, top_y, 0], [bar_x + 0.1, top_y, 0], color=WHITE).scale(0.6),
+                Line(start_point, end_point, color=WHITE),
+                Line([bar_x - 0.1, ground_y, 0], [bar_x + 0.1, ground_y, 0], color=WHITE),
+                Line([bar_x - 0.1, top_y, 0], [bar_x + 0.1, top_y, 0], color=WHITE),
             )
  
         bar2 = always_redraw(make_height_bar)
@@ -254,18 +292,37 @@ class outro(Scene):
         ]).shift(box2.get_top() + DOWN * 0.6)
  
         # Parameter 1: Diameter 
+
+        # Parameter 1: Run Diameter 
+        self.play(Write(diameter), run_time=0.8)
+
         self.play(FadeIn(bar1))
         self.play(bar1.animate.stretch(2, dim=0), run_time=1.2)
         self.play(bar1.animate.stretch(0.25, dim=0), run_time=1.2) 
         self.play(bar1.animate.stretch(2, dim=0), run_time=1.2)
         self.wait(0.5)
+        self.play(bar1.animate.stretch(2, dim=0), run_time=0.6)
+        self.play(bar1.animate.stretch(0.25, dim=0), run_time=0.6) 
+        self.play(bar1.animate.stretch(2, dim=0), run_time=0.6)
+        self.wait(0.2)
+
+        self.play(Write(gt1))
+        self.wait(0.1)
  
         # Parameter 2: Velocity 
+        # Parameter 2: Run Velocity 
+        self.play(Write(velocity), run_time=0.8)
+
         self.play(FadeIn(nozzle2))
         self.play(FadeIn(snelpijl), FadeIn(minidrops))
         self.play(nozzle2.animate.shift(box2.get_top() + DOWN * 0.35).stretch(0.3, dim=1))
         sync_time = 5 
+        self.play(FadeIn(snelpijl))
+        self.play(nozzle2.animate.shift(box2.get_top() + DOWN * 0.35).stretch(0.3, dim=1), run_time=0.7) 
+        self.add(Boxz)
         
+        self.play(FadeIn(minidrops))
+        sync_time = 2.5
         self.play(        
             # The arrow stretches out and shrinks back
             snelpijl.animate(
@@ -276,18 +333,29 @@ class outro(Scene):
             LaggedStart(
                 *[
                     c.animate(rate_func=smooth).shift(DOWN * 6) 
+                    c.animate(rate_func=smooth).shift(DOWN * 6).set_z_index(1) 
                     for c in minidrops
                 ],
                 lag_ratio=0.04,
+                lag_ratio=0.03,
                 run_time=sync_time,
                 rate_func=smooth 
             ),
         )
 
         # Parameter 3: Height 
+        self.play(Write(gt2))
+        self.wait(0.1)
+
+        # Parameter 3: Run Height
+        self.play(Write(height), run_time=0.8)
+
         self.play(FadeIn(nozzle3), FadeIn(bar2))
         self.play(nozzle3.animate.shift(UP*0.35), run_time=1.2)
         self.play(nozzle3.animate.shift(DOWN * 0.35), run_time=1.2)  
+        self.play(nozzle3.animate.shift(UP * 0.45), run_time=0.6)
+        self.play(nozzle3.animate.shift(DOWN * 0.45), run_time=1.25)  
  
         self.wait()
 
+        self.wait()

@@ -5,8 +5,7 @@ import pandas as pd
 from lmfit import models
 import csv
 
-file_path = r"C:\Users\thijm\Documents\Video_droplets\nttm\50000fps_64micron_1mlperminute_1_vel_size2.csv"
-file_path = r"C:\Users\thijm\Documents\Video_droplets\nttm\50000fps_64micron_1mlperminute_1_vel_size5.csv"
+file_path = r"C:\Users\thijm\Documents\Video_droplets\nttm\70000fps_64micron_2mlperminute_1_2500frames_vel_size.csv"
 scaling_fac = 3.85e-6
 
 # Initialize your lists first so Python knows they exist
@@ -41,5 +40,4 @@ speed_m_per_sec= np.array(speed_px_per_s) * scaling_fac
 speed_tot = np.average(speed_m_per_sec)
 sigma_v = np.std(speed_m_per_sec)
 
-print(speed_tot)
 print("Average speed: ", speed_tot, " Std: ", sigma_v)
