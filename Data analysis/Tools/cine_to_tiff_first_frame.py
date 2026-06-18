@@ -10,7 +10,6 @@ from pycine.raw import read_frames
 import tifffile
 import numpy as np
 
-frames, setup, bpp = read_frames(r"\Users\thijm\Documents\Video_droplets\nttm\scale1.cine", count=1)
 frames, setup, bpp = read_frames(r"\Users\thijm\Documents\Video_droplets\nttm\70000fps_64micron_2mlperminute_1.cine", count=1)
 frame_list = [f for f in frames]
-tifffile.imwrite(r"\Users\thijm\Documents\Video_droplets\nttm\scale1.tiff", np.array(frame_list))tifffile.imwrite(r"\Users\thijm\Documents\Video_droplets\nttm\70000fps_64micron_2mlperminute_1.tiff", np.array(frame_list))
+tifffile.imwrite(r"\Users\thijm\Documents\Video_droplets\nttm\70000fps_64micron_2mlperminute_1.tiff", np.array(frame_list))
