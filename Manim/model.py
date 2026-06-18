@@ -1,9 +1,11 @@
 from manim import *
 import numpy as np
 
-
+# The scene that renders the model of the jet
 class model(MovingCameraScene):
     def construct(self):
+
+        # Define nozzle and waterjet
         nozzle = Rectangle(
             fill_color=BLACK,
             fill_opacity=0.5,
@@ -19,6 +21,7 @@ class model(MovingCameraScene):
             fill_opacity=1
         )
 
+        # Some parameters
         wavelength = 1.5
         R1 = 0.30
         R2 = 0.40
@@ -28,6 +31,7 @@ class model(MovingCameraScene):
         omega = 1.5
         ramp_length = 1.5    
         
+        # Define the waterdroplets
         halve_cirkel= Circle(
             color=BLUE, 
             radius = 0.7, 
@@ -149,9 +153,11 @@ class model(MovingCameraScene):
 
         self.camera.frame.save_state()
 
+        # Changes whats on the foreground
         nozzle.set_z_index(2)
         no_wave_jet.set_z_index(1)
 
+        # Start scene
         self.play(Create(nozzle), run_time=1.5)
 
         self.play(
@@ -176,6 +182,7 @@ class model(MovingCameraScene):
 
         time = ValueTracker(0)
 
+        # Makes the waves in the jet
         def make_shape():
             t = time.get_value()
             envelope_t = np.sin(omega * t)                      
@@ -207,6 +214,7 @@ class model(MovingCameraScene):
             Create(wave),
             run_time=0.1)
         
+        # Adds the droplets
         self.add(halve_cirkel, droplet1, droplet2, droplet3, droplet4, droplet5, droplet6, droplet7, droplet8, droplet9, droplet10, droplet11, droplet12, droplet13, droplet14, droplet15, droplet16, droplet17)
         halve_cirkel.set_x(17.8)
         droplet1.set_x(19.8)
@@ -261,7 +269,7 @@ class model(MovingCameraScene):
             ))
         
 
-        
+        # Moves the camera
         self.play(
             time.animate(rate_func=linear).set_value(0.95),
             self.camera.frame.animate.move_to(halve_cirkel.get_right()),
@@ -281,6 +289,7 @@ class model(MovingCameraScene):
             moving_label2, tracking_arrow2
         )
         
+        # Shifts the droplets
         self.play(
             droplet3.animate.shift(RIGHT*1.1),
             droplet5.animate.shift(LEFT*1.5), 
@@ -313,6 +322,7 @@ class model(MovingCameraScene):
         mid_y16 = (droplet16.get_center()[1] + baseline_y) / 2 
         mid_y17 = (droplet17.get_center()[1] + baseline_y) / 2 
 
+        # Adds the length bars
         self.add(
             moving_label3,
             Line(start=droplet13.get_center()+DOWN, end=np.array([droplet13.get_center()[0], baseline_y, 0]), color=WHITE, stroke_width=2,),
@@ -350,7 +360,6 @@ class model(MovingCameraScene):
         black_droplet.set_x(80)
         
         self.play(
-            FadeOut(moving_label3), 
             self.camera.frame.animate.move_to(black_droplet.get_center()),
             run_time=4
         )

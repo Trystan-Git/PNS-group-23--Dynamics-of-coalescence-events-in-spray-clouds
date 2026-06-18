@@ -1,5 +1,6 @@
 from manim import *
 
+# The scene that renders a jet with droplets that have a coalescence event
 class het(Scene):
     def construct(self):
         
@@ -27,8 +28,8 @@ class het(Scene):
             fill_opacity = 0.8
         )
 
+        # Makes the jet round on the end
         WaterJetcirc.move_to(WaterJetsqr.get_edge_center(DOWN))
-
         WaterJet = VGroup(WaterJetsqr, WaterJetcirc)
 
         #Waterdrops
@@ -46,15 +47,9 @@ class het(Scene):
         Waterdrop4 = drop()
         Waterdrop5 = drop()
 
-        Grotedrop = Circle(
-            radius=0.07,
-            color=BLUE,
-            fill_color=BLUE,
-            fill_opacity=0.8
-        )
-
         nozzletext = Text(r"Our nozzle").shift(UP*2.4)
 
+        # Scene start
         self.play(Create(nozzle))
         self.play(Write(nozzletext))
         self.wait(1.5)
@@ -67,10 +62,12 @@ class het(Scene):
         
         self.add(Waterdrop1, Waterdrop2, Waterdrop3, Waterdrop4, Waterdrop5)
         
+        # Moves the droplets after each other
         self.play(
            
             Waterdrop1.animate(run_time=3, rate_func=linear).shift(DOWN * 8),
 
+            # Makes one droplet go faster than the others, and scales it up once it touches another droplet
             Succession(
                 Wait(run_time=0.4),
                 Waterdrop2.animate(run_time=2.0,rate_func=linear).shift(DOWN * 3),
@@ -102,9 +99,13 @@ class het(Scene):
             )     
         )
         self.wait(1)
- 
+
+
+# The scene that shows of the parameters that influence coalescence 
 class para(Scene):
     def construct(self):
+
+        # Makes nozzles
         def make_nozzle():
             return Rectangle(
                 color=GRAY,

@@ -1,21 +1,22 @@
 from manim import * 
 import numpy as np
 
+# The scene that renders the outro
 class outro(Scene):
     def construct(self):
 
-        # text 
+        # Text 
         question = Text(r"Where do the droplets go?").shift(ORIGIN)
         nose = Text(r"Nose").shift(DOWN*3 + LEFT*4)
         nose_canal = Text(r"Nose canal").shift(DOWN*3)
         airway = Text(r"Airway").shift(DOWN*3 + RIGHT*4)
         results = Text(r"Our results").shift(UP*3.2)
         diameter = Text(r"Diameter").scale(0.8)
-        velocity = Text(r"Velocity").scale(0.8)
-        height = Text(r"Height").scale(0.8)
+        velocity = Text(r"velocity").scale(0.8)
+        height = Text(r"height").scale(0.8)
 
 
-        #Waterdrops
+        # Waterdrops
         def drop(**arguments):
             return Circle(
                 color=BLUE,
@@ -25,7 +26,7 @@ class outro(Scene):
             )
 
 
-        #big droplets
+        # Big droplets
         bigdrop1 = drop(radius=0.32).shift(UP*2.5 + LEFT*5)
         bigdrop2 = drop(radius=0.28).shift(UP*1.5 + RIGHT*3)
         bigdrop3 = drop(radius=0.35).shift(DOWN*0.5 + LEFT*4)
@@ -36,7 +37,7 @@ class outro(Scene):
         bigdrop8 = drop(radius=0.27).shift(DOWN*3 + LEFT*5.5)
 
 
-        # medium droplets
+        # Medium droplets
         middrop1  = drop(radius=0.22).shift(UP*3.2 + LEFT*2.3)
         middrop2  = drop(radius=0.18).shift(UP*2.3 + LEFT*0.8)
         middrop3  = drop(radius=0.21).shift(UP*1.7 + RIGHT*0.7)
@@ -48,7 +49,7 @@ class outro(Scene):
         middrop9  = drop(radius=0.22).shift(DOWN*2.1 + RIGHT*2.2)
         middrop10 = drop(radius=0.19).shift(DOWN*3.2 + RIGHT*1.1)
 
-        # small droplets
+        # Small droplets
         smalldrop1  = drop(radius=0.11).shift(UP*3.1 + LEFT*3.4)
         smalldrop2  = drop(radius=0.09).shift(UP*2.6 + LEFT*1.3)
         smalldrop3  = drop(radius=0.10).shift(UP*2.1 + RIGHT*1.2)
@@ -66,7 +67,7 @@ class outro(Scene):
         smalldrop15 = drop(radius=0.09).shift(ORIGIN + LEFT*1.2)
 
 
-        # sets of droplets
+        # Sets of droplets
         bigdrops = VGroup(bigdrop1,bigdrop2,bigdrop3,bigdrop4,bigdrop5,bigdrop6,bigdrop7,bigdrop8)
 
         middrops = VGroup(middrop1,middrop2,middrop3,middrop4,middrop5,middrop6,middrop7,middrop8
@@ -138,6 +139,8 @@ class outro(Scene):
             )
         )
         self.wait(1)
+
+        # Sorts the droplets
         self.play(
             *[
                 d.animate.move_to(t.get_center())
@@ -154,6 +157,7 @@ class outro(Scene):
             run_time=3,
         )
 
+        # Create boxes
         self.play(Create(nose))
         self.wait(0.5)
         self.play(Create(nose_canal))
@@ -230,7 +234,6 @@ class outro(Scene):
             )
  
         bar2 = always_redraw(make_height_bar)
-
 
         # Parameter 1: Run Diameter 
         self.play(Write(diameter), run_time=0.8)
