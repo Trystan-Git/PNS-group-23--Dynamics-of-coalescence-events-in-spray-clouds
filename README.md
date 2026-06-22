@@ -8,6 +8,6 @@ Our date files after day 3 are named as follows: (height of aperatus)_(nozzle ID
 
 The code relevant for our data-analysis can be found in the folder named 'Data analysis'. In there the data analysis is sorted into a folder with some tools we used to be able to analyze the data and by the day where the data was gathered. 
 
-The code relevant for our Manimations can be found in the folder named 'Manim'. 
+The code relevant for our Manimations can be found in the folder named 'Manim'. The five segments of the animation are devided in 5 different manimation scenes.
 
 Our lab journal including log and our meetings including agenda and minutes can be found in our Overleaf project.
